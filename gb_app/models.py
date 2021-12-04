@@ -26,7 +26,13 @@ class GreatBuilding(models.Model):
     )
     name = models.CharField(max_length=20)
     age = models.CharField(max_length=30, choices=AGE_CHOICES)
-    level = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+class GBLevel(models.Model):
+    gb = models.ForeignKey(GreatBuilding, related_name='gb_level', on_delete=models.CASCADE)
+    level = models.IntegerField(default=1)
     p1 = models.IntegerField(default=0)
     p2 = models.IntegerField(default=0)
     p3 = models.IntegerField(default=0)
@@ -34,4 +40,4 @@ class GreatBuilding(models.Model):
     p5 = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.name} - #{self.level}'
+        return f'{self.gb.name} - #{self.level}'
